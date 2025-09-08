@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Manao Dost</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(270deg, #ff6ec4, #7873f5, #4facfe);
+      background-size: 600% 600%;
+      animation: gradientBG 15s ease infinite;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      color: white;
+      text-align: center;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .container {
+      max-width: 600px;
+      padding: 20px;
+      background: rgba(0,0,0,0.4);
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.6);
+    }
+
+    h1 { font-size: 26px; margin-bottom: 20px; }
+
+    .btn {
+      margin: 10px;
+      padding: 12px 24px;
+      font-size: 16px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn-primary {
+      background: #ff6ec4;
+      color: white;
+    }
+
+    .btn-secondary {
+      background: white;
+      color: #ff6ec4;
+    }
+
+    .btn:hover { transform: scale(1.1); }
+
+    /* Floating hearts */
+    .heart {
+      position: fixed;
+      bottom: -10px;
+      color: rgba(255,255,255,0.7);
+      font-size: 20px;
+      animation: floatUp 6s linear infinite;
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
+    }
+
+    /* Final hearts burst */
+    .burst {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 50px;
+      animation: burstAnim 1s ease-out forwards;
+    }
+    @keyframes burstAnim {
+      0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+      100% { transform: translate(-50%, -50%) scale(3); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 id="message">Tum gussa ho na 😐</h1>
+    <button class="btn btn-primary" onclick="nextMsg()">Aagay Barho →</button>
+    <button class="btn btn-secondary" onclick="skipMsg()">Chhoro</button>
+  </div>
+
+  <script>
+    const messages = [
+      "Tum gussa ho na 😐",
+      "Mujhe pata tha… lekin suno zara 👂",
+      "Chhoro bhi yaar, gussa tu pyar ka dusra roop hai 😅",
+      "Waise U khafa hone se mera sara messenger war jata he  🤭",
+      "Acha theek hai… pehle ek joke suno 😂",
+      "Dosti ka asli maza tab hai jab gussa bhi ho aur saath bhi ho ❤️",
+      "Meri zindagi ka sabse khoobsurat hissa U kaLo My achi si dost aa  🌸",
+      "Sach bolo to tumre bina mera messenger adhoora he 😹💔",
+      "Jo bhi ho jaye, tu mera dost thi, hai aur rahega 🤝",
+      "JAb Kisi Ne mara he to ache klye mara hoga na 🙆‍♂️😹 ✨",
+      "Yaar ese Me rotee nhi he na 😹 💎",
+      "Dosti ka matlab he Alu tamatr 😐❤️",
+      "Ab gussa chhoro aur smile do na 😐",
+      "Chalo ab dil halka karo aur khushi manao 🎉",
+      "Smile Please 🙆‍♂️ Tu meri zindagi ka asli dost hai kalo💕"
+    ];
+
+    let index = 0;
+    const msgEl = document.getElementById("message");
+
+    function nextMsg() {
+      index++;
+      if(index < messages.length) {
+        msgEl.textContent = messages[index];
+        if(index === messages.length - 1) {
+          burstHearts();
+        }
+      }
+    }
+
+    function skipMsg() {
+      msgEl.textContent = "Chalo shortcut se… Smile Please 😘 Tu meri zindagi ka asli dost hai 💕";
+      burstHearts();
+    }
+
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.textContent = "❤️";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = (3 + Math.random() * 3) + "s";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 6000);
+    }
+    setInterval(createHeart, 500);
+
+    function burstHearts() {
+      for(let i=0; i<20; i++) {
+        const burst = document.createElement("div");
+        burst.className = "burst";
+        burst.textContent = "❤️";
+        burst.style.left = (50 + (Math.random()*40-20)) + "%";
+        burst.style.top = (50 + (Math.random()*40-20)) + "%";
+        document.body.appendChild(burst);
+        setTimeout(() => burst.remove(), 1000);
+      }
+    }
+  </script>
+</body>
+</html>
